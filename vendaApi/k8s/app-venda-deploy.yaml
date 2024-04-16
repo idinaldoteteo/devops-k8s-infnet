@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-venda-deploy
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     # labels que o deployment vai ler
     matchLabels:      
