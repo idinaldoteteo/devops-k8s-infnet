@@ -16,15 +16,14 @@ spec:
         app: mysql-venda-app
     spec:
       containers:
-      - name: mysql-image
-        image: mysql:8.0.33
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: teteo
-        - name: MYSQL_DATABASE
-          value: dbInfnet
-        - name: MYSQL_HOST
-          value: mysql-service-2    
-        ports:
-        - containerPort: 3306
-          name: mysql
+        - name: mysql-container
+          image: mysql:8.0.33          
+          imagePullPolicy: Always
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: teteo
+          - name: MYSQL_DATABASE
+            value: dbInfnet       
+          ports:
+          - containerPort: 3306
+      restartPolicy: Always

@@ -1,9 +1,9 @@
 apiVersion: apps/v1 # precisa ser assim, está dentro do apps
 kind: Deployment
 metadata:
-  name: venda-app-deploy
+  name: app-venda-deploy
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     # labels que o deployment vai ler
     matchLabels:      
@@ -20,13 +20,22 @@ spec:
         image: teteo/venda-app:0.1
         ports:
         - containerPort: 8081
-          name: http
         env:    
-        - name: MYSQL_ROOT_PASSWORD
-          value: teteo
-        - name: MYSQL_DATABASE
-          value: dbInfnet
         - name: MYSQL_HOST
           value: mysql-service-2
+        - name: MYSQL_DB_NAME
+          value: dbInfnet
         - name: MYSQL_USER
           value: root   
+        - name: MYSQL_PASSWORD
+          value: teteo
+        readinessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 10
